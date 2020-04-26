@@ -1,0 +1,46 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+rule "Start cooling system"
+    when
+        $a: Action(type == "STOP_SWIRLING");
+    then
+        System.out.println("phase seven started!");
+        System.out.println("START_COOLING_SYSTEM");
+        insert(new Action("START_COOLING_SYSTEM"));
+end
+
+rule "Release wort to cooling medium"
+    when
+        $a: Action(type == "START_COOLING_SYSTEM");
+    then
+        System.out.println("RELEASE_WORT_TO_COOLING_MEDIUM");
+        insert(new Action("RELEASE_WORT_TO_COOLING_MEDIUM"));
+        System.out.println("phase eight started!");
+        System.out.println("OPEN_FERMENTATION_VESSELS");
+        insert(new Action("OPEN_FERMENTATION_VESSELS"));
+
+end
+
+rule "Stop releasing wort to cooling medium"
+    when
+        $a: Action(type == "RELEASE_WORT_TO_COOLING_MEDIUM");
+        $a2: Action(type == "OPEN_FERMENTATION_VESSELS");
+    then
+        System.out.println("STOP_RELEASING_WORT_TO_COOLING_MEDIUM");
+        insert(new Action("STOP_RELEASING_WORT_TO_COOLING_MEDIUM"));
+        System.out.println("CLOSE_FERMENTATION_VESSELS");
+        insert(new Action("CLOSE_FERMENTATION_VESSELS"));
+end
+
+rule "Stop cooling system"
+    when
+        $a: Action(type == "STOP_RELEASING_WORD_TO_COOLING_MEDIUM");
+        $a2: Action(type == "CLOSE_FERMENTATION_VESSELS");
+    then
+        System.out.println("STOP_COOLING_SYSTEM");
+        insert(new Action("STOP_COOLING_SYSTEM"));
+        System.out.println("phase seven done!");
+end

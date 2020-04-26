@@ -1,0 +1,33 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List;
+
+rule "Stop releasing mixture"
+    when
+        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TAN");
+    then
+        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN");
+        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"));
+end
+
+rule "Release mixture to launter tan"
+    when
+        $a: Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN");
+        $list: List(size == 1) from collect (Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"))
+    then
+        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TAN");
+        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TAN"));
+        System.out.println("phase four started!");
+end
+
+
+rule "Release mixture to launter tan for second time"
+    when
+        $a1: Action(type == "STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TAN");
+        $list: List(size == 2) from collect (Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"))
+    then
+        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TAN_FOR_SECOND_TIME");
+        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TAN_FOR_SECOND_TIME"));
+        System.out.println("phase three done!");
+end

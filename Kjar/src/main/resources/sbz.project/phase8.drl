@@ -1,0 +1,55 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+rule "Add yeast"
+    when
+        $a: Action(type == "CLOSE_FERMENTATION_VESSELS");
+    then
+        System.out.println("ADD_YEAST");
+        insert(new Action("ADD_YEAST"));
+end
+
+rule "Stop adding yeast"
+    when
+        $a: Action(type == "ADD_YEAST");
+    then
+        System.out.println("STOP_ADDING_YEAST");
+        insert(new Action("STOP_ADDING_YEAST"));
+end
+
+rule "Begin fermentation"
+    when
+        $a: Action(type == "STOP_ADDING_YEAST");
+    then
+        System.out.println("BEGIN_FERMENTATION");
+        insert(new Action("BEGIN_FERMENTATION"));
+end
+
+rule "Stop fermentation"
+    when
+        $a: Action(type == "BEGIN_FERMENTATION");
+    then
+        System.out.println("STOP_FERMENTATION");
+        insert(new Action("STOP_FERMENTATION"));
+        System.out.println("phase eight done!");
+end
+
+rule "Release beer to conditioning tanks"
+    when
+        $a: Action(type == "STOP_FERMENTATION");
+    then
+        System.out.println("phase nine started!");
+        System.out.println("RELEASE_BEER_TO_CONDITIONING_TANKS");
+        insert(new Action("RELEASE_BEER_TO_CONDITIONING_TANKS"));
+end
+
+
+rule "Stop releasing beer to conditioning tanks"
+    when
+        $a: Action(type == "RELEASE_BEER_TO_CONDITIONING_TANKS");
+    then
+        System.out.println("STOP_RELEASING_BEER_TO_CONDITIONING_TANKS");
+        insert(new Action("STOP_RELEASING_BEER_TO_CONDITIONING_TANKS"));
+end

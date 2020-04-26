@@ -1,0 +1,23 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+
+rule "Start swirling"
+    when
+        $a: Action(type == "STOP_RELEASING_WORT_TO_WHIRLPOOL");
+    then
+        System.out.println("phase six started!");
+        System.out.println("START_SWIRLING");
+        insert(new Action("START_SWIRLING"));
+end
+
+rule "STOP swirling"
+    when
+        $a: Action(type == "START_SWIRLING");
+    then
+        System.out.println("STOP_SWIRLING");
+        insert(new Action("STOP_SWIRLING"));
+        System.out.println("phase six done!");
+end

@@ -1,0 +1,47 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+
+rule "Stop releasing hops to brew kettle"
+    when
+        $a: Action(type == "ADD_HOPS_TO_BREW_KETTLE");
+    then
+        System.out.println("STOP_ADDING_HOPS_TO_BREW_KETTLE");
+        insert(new Action("STOP_ADDING_HOPS_TO_BREW_KETTLE"));
+end
+
+rule "Start boiling"
+    when
+        $a: Action(type == "STOP_ADDING_HOPS_TO_BREW_KETTLE");
+    then
+        System.out.println("START_BOILING");
+        insert(new Action("START_BOILING"));
+end
+
+rule "Stop boiling"
+    when
+        $a: Action(type == "START_BOILING");
+    then
+        System.out.println("STOP_BOILING");
+        insert(new Action("STOP_BOILING"));
+        System.out.println("phase five done!");
+end
+
+
+rule "Release wort to whirlpool "
+    when
+        $a: Action(type == "STOP_BOILING");
+    then
+        System.out.println("RELEASE_WORT_TO_WHIRLPOOL");
+        insert(new Action("RELEASE_WORT_TO_WHIRLPOOL"));
+end
+
+rule "Stop releasing wort to whirlpool "
+    when
+        $a: Action(type == "RELEASE_WORT_TO_WHIRLPOOL");
+    then
+        System.out.println("STOP_RELEASING_WORT_TO_WHIRLPOOL");
+        insert(new Action("STOP_RELEASING_WORT_TO_WHIRLPOOL"));
+end

@@ -1,0 +1,23 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+
+rule "Start filtering beer"
+    when
+        $a: Action(type == "RELEASE_BEER_TO_FILTERING_MEDIUM");
+    then
+        System.out.println("START_FILTERING");
+        insert(new Action("START_FILTERING"));
+end
+
+rule "Stop filtering beer"
+    when
+        $a: Action(type == "STOP_FILLING_BARRELS");
+        $a2: Action(type == "STOP_BOTTLING");
+    then
+        System.out.println("STOP_FILTERING");
+        insert(new Action("STOP_FILTERING"));
+end
+

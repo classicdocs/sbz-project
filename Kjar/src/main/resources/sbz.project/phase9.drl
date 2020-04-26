@@ -1,0 +1,41 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+import java.util.List
+
+
+rule "Begin beer's conditioning"
+    when
+        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANKS");
+    then
+        System.out.println("BEGIN_BEER_CONDITIONING");
+        insert(new Action("BEGIN_BEER_CONDITIONING"));
+end
+
+rule "Stop beer's conditioning"
+    when
+        $a: Action(type == "BEGIN_BEER_CONDITIONING");
+    then
+        System.out.println("STOP_BEER_CONDITIONING");
+        insert(new Action("STOP_BEER_CONDITIONING"));
+        System.out.println("phase nine done!");
+end
+
+
+rule "Release beer to filtering medium"
+    when
+        $a: Action(type == "STOP_BEER_CONDITIONING");
+    then
+        System.out.println("phase ten started!");
+        System.out.println("RELEASE_BEER_TO_FILTERING_MEDIUM");
+        insert(new Action("RELEASE_BEER_TO_FILTERING_MEDIUM"));
+end
+
+rule "Stop releasing beer to filtering medium"
+    when
+        $a: Action(type == "STOP_FILTERING");
+    then
+        System.out.println("STOP_RELEASING_BEER_TO_FILTERING_MEDIUM");
+        insert(new Action("STOP_RELEASING_BEER_TO_FILTERING_MEDIUM"));
+        System.out.println("phase ten done!");
+end
