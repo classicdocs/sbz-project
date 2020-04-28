@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sbz.project.Application.domain.dto.MeasurerDTO;
 import sbz.project.Application.service.action.ActionService;
 
 @Controller
@@ -15,6 +18,12 @@ public class ActionController {
 
     public ActionController(ActionService actionService) {
         this.actionService = actionService;
+    }
+
+    @PostMapping("/measurer")
+    public ResponseEntity changeMeasurer(@RequestBody MeasurerDTO measurerDTO) {
+        actionService.action(measurerDTO);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/start")
