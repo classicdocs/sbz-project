@@ -16,4 +16,10 @@ public class Measurer {
         this.name = name;
         this.unit = unit;
     }
+
+    public Measurer(String name, Unit unit, double value) {
+        this.name = name;
+        this.unit = unit;
+        this.value = value;
+    }
 }

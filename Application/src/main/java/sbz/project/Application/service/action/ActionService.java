@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sbz.project.Application.domain.dto.MeasurerDTO;
 import sbz.project.Application.domain.enums.Unit;
-import sbz.project.Application.domain.events.Event;
 import sbz.project.Application.domain.facts.Action;
 import sbz.project.Application.domain.facts.Measurer;
 
@@ -25,7 +24,7 @@ public class ActionService {
         this.kieContainer = kieContainer;
     }
 
-    public void startSystem() {
+    public void startSystem() throws InterruptedException {
 
         if (kieSession != null) {
             return;
@@ -35,9 +34,20 @@ public class ActionService {
         Action startAction = new Action("START_SYSTEM");
         kieSession.setGlobal("actionService", this);
         kieSession.insert(startAction);
-        kieSession.fireAllRules();
 
-//        kieSession.dispose();
+        boolean working = true;
+        while (working) {
+            Thread.sleep(1000);
+            kieSession.fireAllRules();
+            Collection<Action> actions = (Collection<Action>) kieSession.getObjects( new ClassObjectFilter(Action.class));
+
+            for (Action action : actions) {
+                if (action.getType().equals("STOP_SYSTEM")) {
+                    working = false;
+                }
+            }
+
+        }
     }
 
     public void action(MeasurerDTO measurerDTO) {

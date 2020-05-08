@@ -3,20 +3,24 @@ package sbz.project
 import sbz.project.Application.domain.facts.*;
 import java.util.List
 
+global sbz.project.Application.service.action.ActionService actionService;
 
 rule "Start swirling"
     when
         $a: Action(type == "STOP_RELEASING_WORT_TO_WHIRLPOOL");
     then
+        delete($a);
         System.out.println("phase six started!");
         System.out.println("START_SWIRLING");
-        insert(new Action("START_SWIRLING"));
+        long time = 3000;
+        actionService.startAction(time, "START_SWIRLING");
 end
 
 rule "STOP swirling"
     when
         $a: Action(type == "START_SWIRLING");
     then
+        delete($a);
         System.out.println("STOP_SWIRLING");
         insert(new Action("STOP_SWIRLING"));
         System.out.println("phase six done!");

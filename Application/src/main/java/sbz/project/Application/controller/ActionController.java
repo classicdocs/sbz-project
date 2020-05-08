@@ -28,7 +28,12 @@ public class ActionController {
 
     @PostMapping("/start")
     public ResponseEntity startSystem() {
-        actionService.startSystem();
+        try {
+            actionService.startSystem();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         return new ResponseEntity(HttpStatus.OK);
     }

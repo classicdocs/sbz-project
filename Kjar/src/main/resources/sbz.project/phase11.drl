@@ -15,7 +15,9 @@ end
 rule "Stop bottling"
     when
         $a: Action(type == "START_BOTTLING");
+        $m: Measurer(name == "MEASURER_CONDITIONING_TANK", value == 0);
     then
+        delete($a);
         System.out.println("STOP_BOTTLING");
         insert(new Action("STOP_BOTTLING"));
         System.out.println("phase eleven done!");

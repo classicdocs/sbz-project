@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "a54cac1b-bd02-4a60-81bc-c7ae65f6ba6a",
+		"name": "sbz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "start",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/action/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2_ADD_MALT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_MASH_TUN_MALT\",\n\t\"value\": \"20\",\n\t\"unit\": \"KILOGRAM\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3_ADD_WATER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_MASH_TUN_WATER\",\n\t\"value\": \"70\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4_RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_MASH_TUN\",\n\t\"value\": \"60\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5_RELEASE_MIXTURE_TO_LAUNTER_TUN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_PRE_LAUNTER_TUN\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6_ADD_WATER_TO_LAUNTER_TUN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_LAUNTER_TUN_WATER\",\n\t\"value\": \"20\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7_STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_LAUNTER_TUN\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8_STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECON_TIME",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_MASH_TUN\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9_ADD_HOPS_TO_BREW_KETTLE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_BREW_KETTLE_HOPS\",\n\t\"value\": \"10\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10_RELEASE_WORT_TO_WHIRLPOOL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_BREW_KETTLE\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11_STOP_RELEASING_WORT_TO_WHIRLPOOL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_BREW_KETTLE\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12_STOP_RELEASING_WORT_TO_COOLING_MEDIUM",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_WHIRLPOOL\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13_ADD_YEAST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_YEAST\",\n\t\"value\": \"20\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14_STOP_RELEASING_BEER_TO_CONDITIONING_TANK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_FERMENTATION_TANK\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15_STOP_FILTERING",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"MEASURER_CONDITIONING_TANK\",\n\t\"value\": \"0\",\n\t\"unit\": \"LITER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/action/measurer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"action",
+						"measurer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

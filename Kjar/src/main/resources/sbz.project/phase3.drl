@@ -5,29 +5,45 @@ import java.util.List;
 
 rule "Stop releasing mixture"
     when
-        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TAN");
+        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
+        $m: Measurer(name == "MEASURER_MASH_TUN", value == 60);
     then
-        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN");
-        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"));
+        delete($a);
+        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
+        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN"));
 end
 
-rule "Release mixture to launter tan"
+
+rule "Stop releasing mixture for second time"
     when
-        $a: Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN");
-        $list: List(size == 1) from collect (Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"))
+        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
+        $m: Measurer(name == "MEASURER_MASH_TUN", value == 0);
     then
-        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TAN");
-        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TAN"));
+        delete($a);
+        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
+        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME"));
+end
+
+rule "Release mixture to launter tun"
+    when
+        $a: Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
+    then
+        delete($a);
+        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TUN");
+        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TUN"));
         System.out.println("phase four started!");
 end
 
-
-rule "Release mixture to launter tan for second time"
+rule "Release mixture to launter tun for second time"
     when
-        $a1: Action(type == "STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TAN");
-        $list: List(size == 2) from collect (Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TAN"))
+        $a: Action(type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
+        $a2: Action(type == "STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
+        $m: Measurer(name == "MEASURER_LAUNTER_TUN", value == 0);
+        $m2: Measurer(name == "MEASURER_MASH_TUN", value == 0);
     then
-        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TAN_FOR_SECOND_TIME");
-        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TAN_FOR_SECOND_TIME"));
-        System.out.println("phase three done!");
+        delete($a);
+        delete($a2);
+        System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
+        insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME"));
+        System.out.println("phase four started!");
 end

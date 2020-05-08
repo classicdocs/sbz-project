@@ -7,6 +7,7 @@ rule "Start cooling system"
     when
         $a: Action(type == "STOP_SWIRLING");
     then
+        delete($a);
         System.out.println("phase seven started!");
         System.out.println("START_COOLING_SYSTEM");
         insert(new Action("START_COOLING_SYSTEM"));
@@ -16,6 +17,7 @@ rule "Release wort to cooling medium"
     when
         $a: Action(type == "START_COOLING_SYSTEM");
     then
+        delete($a);
         System.out.println("RELEASE_WORT_TO_COOLING_MEDIUM");
         insert(new Action("RELEASE_WORT_TO_COOLING_MEDIUM"));
         System.out.println("phase eight started!");
@@ -28,7 +30,10 @@ rule "Stop releasing wort to cooling medium"
     when
         $a: Action(type == "RELEASE_WORT_TO_COOLING_MEDIUM");
         $a2: Action(type == "OPEN_FERMENTATION_VESSELS");
+        $m: Measurer(name == "MEASURER_WHIRLPOOL", value == 0);
     then
+        delete($a);
+        delete($a2);
         System.out.println("STOP_RELEASING_WORT_TO_COOLING_MEDIUM");
         insert(new Action("STOP_RELEASING_WORT_TO_COOLING_MEDIUM"));
         System.out.println("CLOSE_FERMENTATION_VESSELS");
@@ -40,6 +45,8 @@ rule "Stop cooling system"
         $a: Action(type == "STOP_RELEASING_WORD_TO_COOLING_MEDIUM");
         $a2: Action(type == "CLOSE_FERMENTATION_VESSELS");
     then
+        delete($a);
+        delete($a2);
         System.out.println("STOP_COOLING_SYSTEM");
         insert(new Action("STOP_COOLING_SYSTEM"));
         System.out.println("phase seven done!");

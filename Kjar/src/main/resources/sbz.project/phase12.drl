@@ -17,7 +17,9 @@ end
 rule "Stop filling barrels"
     when
         $a: Action(type == "START_FILLING_BARRELS");
+        $m: Measurer(name == "MEASURER_CONDITIONING_TANK", value == 0);
     then
+        delete($a);
         System.out.println("STOP_FILLING_BARRELS");
         insert(new Action("STOP_FILLING_BARRELS"));
         System.out.println("phase twelve done!");

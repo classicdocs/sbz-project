@@ -3,19 +3,24 @@ package sbz.project
 import sbz.project.Application.domain.facts.*;
 import java.util.List
 
+global sbz.project.Application.service.action.ActionService actionService;
+
 
 rule "Begin beer's conditioning"
     when
-        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANKS");
+        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
     then
+        delete($a);
         System.out.println("BEGIN_BEER_CONDITIONING");
-        insert(new Action("BEGIN_BEER_CONDITIONING"));
+        long time = 3000;
+        actionService.startAction(time, "BEGIN_BEER_CONDITIONING");
 end
 
 rule "Stop beer's conditioning"
     when
         $a: Action(type == "BEGIN_BEER_CONDITIONING");
     then
+        delete($a);
         System.out.println("STOP_BEER_CONDITIONING");
         insert(new Action("STOP_BEER_CONDITIONING"));
         System.out.println("phase nine done!");
@@ -26,6 +31,7 @@ rule "Release beer to filtering medium"
     when
         $a: Action(type == "STOP_BEER_CONDITIONING");
     then
+        delete($a);
         System.out.println("phase ten started!");
         System.out.println("RELEASE_BEER_TO_FILTERING_MEDIUM");
         insert(new Action("RELEASE_BEER_TO_FILTERING_MEDIUM"));
