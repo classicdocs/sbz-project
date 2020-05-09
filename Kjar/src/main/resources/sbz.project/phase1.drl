@@ -10,11 +10,3 @@ rule "Start system"
         System.out.println("ADD_MALT_TO_MASH_TUN)");
         insert(new Action("ADD_MALT_TO_MASH_TUN"));
 end
-
-rule "System end"
-    when
-        $a: Action(type == "STOP_RELEASING_BEER_TO_FILTERING_MEDIUM")
-    then
-        System.out.println("STOP_SYSTEM");
-        insert(new Action("STOP_SYSTEM"));
-end

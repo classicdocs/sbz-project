@@ -63,8 +63,6 @@ end
 rule "Release mixture to pre launter tun"
     when
         $a: Action(type == "STOP_MASHING");
-        $m1: Measurer(name == "MEASURER_MASH_TUN_WATER");
-        $m2: Measurer(name == "MEASURER_MASH_TUN_MALT");
     then
         delete($a);
         System.out.println("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");

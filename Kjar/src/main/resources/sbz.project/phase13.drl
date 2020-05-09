@@ -1,0 +1,11 @@
+package sbz.project;
+
+import sbz.project.Application.domain.facts.*;
+
+rule "System end"
+    when
+        $a: Action(type == "STOP_RELEASING_BEER_TO_FILTERING_MEDIUM")
+    then
+        System.out.println("STOP_SYSTEM");
+        insert(new Action("STOP_SYSTEM"));
+end
