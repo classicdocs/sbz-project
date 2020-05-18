@@ -102,7 +102,7 @@ end
 rule "Stop releasing wort to brew kettle"
     when
         $a: Action(type == "RELEASE_WORT_TO_BREW_KETTLE");
-        $m: Measurer(name == "MEASURER_LAUNTER_TAN", value == 0);
+        $m: Measurer(name == "MEASURER_LAUNTER_TUN", value == 0);
     then
         delete($a);
         System.out.println("STOP_RELEASING_WORT_TO_BREW_KETTLE");

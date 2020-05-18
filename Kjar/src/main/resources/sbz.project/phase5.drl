@@ -18,6 +18,7 @@ end
 rule "Start boiling"
     when
         $a: Action(type == "STOP_ADDING_HOPS_TO_BREW_KETTLE");
+        $a2: Action(type == "STOP_RELEASING_WORT_TO_BREW_KETTLE");
     then
         delete($a);
         System.out.println("START_BOILING");
