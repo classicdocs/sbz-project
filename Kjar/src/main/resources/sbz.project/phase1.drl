@@ -1,6 +1,7 @@
 package sbz.project;
 
 import sbz.project.Application.domain.facts.*;
+global sbz.project.Application.service.action.ActionService actionService;
 
 rule "Start system"
     when
@@ -9,4 +10,5 @@ rule "Start system"
         System.out.println("phase two started!");
         System.out.println("ADD_MALT_TO_MASH_TUN)");
         insert(new Action("ADD_MALT_TO_MASH_TUN"));
+        actionService.sendMessage("ADD_MALT_TO_MASH_TUN");
 end

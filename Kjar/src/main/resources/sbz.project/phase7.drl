@@ -2,6 +2,7 @@ package sbz.project
 
 import sbz.project.Application.domain.facts.*;
 import java.util.List
+global sbz.project.Application.service.action.ActionService actionService;
 
 rule "Start cooling system"
     when
@@ -20,6 +21,7 @@ rule "Release wort to cooling medium"
         delete($a);
         System.out.println("RELEASE_WORT_TO_COOLING_MEDIUM");
         insert(new Action("RELEASE_WORT_TO_COOLING_MEDIUM"));
+        actionService.sendMessage("RELEASE_WORT_TO_COOLING_MEDIUM");
         System.out.println("phase eight started!");
         System.out.println("OPEN_FERMENTATION_VESSELS");
         insert(new Action("OPEN_FERMENTATION_VESSELS"));
@@ -36,6 +38,7 @@ rule "Stop releasing wort to cooling medium"
         delete($a2);
         System.out.println("STOP_RELEASING_WORT_TO_COOLING_MEDIUM");
         insert(new Action("STOP_RELEASING_WORT_TO_COOLING_MEDIUM"));
+        actionService.sendMessage("STOP_RELEASING_WORT_TO_COOLING_MEDIUM");
         System.out.println("CLOSE_FERMENTATION_VESSELS");
         insert(new Action("CLOSE_FERMENTATION_VESSELS"));
 end

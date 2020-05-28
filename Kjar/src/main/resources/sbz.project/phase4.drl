@@ -9,11 +9,13 @@ global sbz.project.Application.service.action.ActionService actionService;
 rule "Stop releasing mixture to launter tun"
     when
         $a: Action(type == "RELEASE_MIXTURE_TO_LAUNTER_TUN");
-        $m: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value == 0)
+        $m: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value == 0);
+        $m2: Measurer(name == "MEASURER_LAUNTER_TUN", value == 60)
     then
         delete($a);
         System.out.println("STOP_RELEASING_MIXTURE_TO_LAUNTER_TUN");
         insert(new Action("STOP_RELEASING_MIXTURE_TO_LAUNTER_TUN"));
+        actionService.sendMessage("STOP_RELEASING_MIXTURE_TO_LAUNTER_TUN");
 end
 
 rule "Add water to launter tun"
@@ -23,6 +25,7 @@ rule "Add water to launter tun"
         delete($a);
         System.out.println("ADD_WATER_TO_LAUNTER_TUN");
         insert(new Action("ADD_WATER_TO_LAUNTER_TUN"));
+        actionService.sendMessage("ADD_WATER_TO_LAUNTER_TUN");
 
 end
 
@@ -34,6 +37,7 @@ rule "Stop adding water to launter tun"
         delete($a);
         System.out.println("STOP_ADDING_WATER_TO_LAUNTER_TUN");
         insert(new Action("STOP_ADDING_WATER_TO_LAUNTER_TUN"));
+        actionService.sendMessage("STOP_ADDING_WATER_TO_LAUNTER_TUN");
 end
 
 rule "Release back mixture to pre launter tun and release mixture tu pre launter"
@@ -43,18 +47,22 @@ rule "Release back mixture to pre launter tun and release mixture tu pre launter
        delete($a);
        System.out.println("RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
        insert(new Action("RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN"));
+       actionService.sendMessage("RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
        System.out.println("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
        insert(new Action("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME"));
+       actionService.sendMessage("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
 end
 
 rule "Stop releasing mixture to pre launter tun"
     when
         $a: Action(type == "RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
         $m: Measurer(name == "MEASURER_LAUNTER_TUN", value == 0)
+        $m2: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value > 60);
     then
         delete($a);
         System.out.println("STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
         insert(new Action("STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN"));
+        actionService.sendMessage("STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
 end
 
 rule "Stop releasing mixture to pre launter tun for second time"
@@ -65,6 +73,7 @@ rule "Stop releasing mixture to pre launter tun for second time"
         delete($a);
         System.out.println("STOP_RELEASING_BACK_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
         insert(new Action("STOP_RELEASING_BACK_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME"));
+        actionService.sendMessage("STOP_RELEASING_BACK_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
 end
 
 rule "Start separating wort from the grains"
@@ -94,8 +103,10 @@ rule "Release wort and hops to brew kettle"
         delete($a);
         System.out.println("RELEASE_WORT_TO_BREW_KETTLE");
         insert(new Action("RELEASE_WORT_TO_BREW_KETTLE"));
+        actionService.sendMessage("RELEASE_WORT_TO_BREW_KETTLE");
         System.out.println("ADD_HOPS_TO_BREW_KETTLE");
         insert(new Action("ADD_HOPS_TO_BREW_KETTLE"));
+        actionService.sendMessage("ADD_HOPS_TO_BREW_KETTLE");
         System.out.println("phase five started!");
 end
 
@@ -107,6 +118,7 @@ rule "Stop releasing wort to brew kettle"
         delete($a);
         System.out.println("STOP_RELEASING_WORT_TO_BREW_KETTLE");
         insert(new Action("STOP_RELEASING_WORT_TO_BREW_KETTLE"));
+        actionService.sendMessage("STOP_RELEASING_WORT_TO_BREW_KETTLE");
         System.out.println("phase four done!");
 
 end

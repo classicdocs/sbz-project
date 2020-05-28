@@ -7,8 +7,6 @@ import lombok.Setter;
 
 import java.util.Date;
 
-import static sbz.project.Application.service.action.ActionService.startAction;
-
 
 @AllArgsConstructor
 @Getter
@@ -21,9 +19,4 @@ public class Action {
     public Action(String type) {
         this.type = type;
     }
-
-    public void startAction(long time, String actionType) {
-        startAction(time,actionType);
-    }
-
 }

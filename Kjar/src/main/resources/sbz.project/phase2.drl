@@ -16,6 +16,7 @@ rule "Stop adding malt to mash tun"
     then
         System.out.println("STOP_ADDING_MALT_TO_MASH_TUN");
         insert(new Action("STOP_ADDING_MALT_TO_MASH_TUN"));
+        actionService.sendMessage("STOP_ADDING_MALT_TO_MASH_TUN");
         delete($a);
 end
 
@@ -25,6 +26,7 @@ rule "Add water to mash tun"
     then
         System.out.println("ADD_WATER_TO_MASH_TUN");
         insert(new Action("ADD_WATER_TO_MASH_TUN"));
+        actionService.sendMessage("ADD_WATER_TO_MASH_TUN");
         delete($a);
 end
 
@@ -35,6 +37,7 @@ rule "Stop adding water to mash tun"
     then
         System.out.println("STOP_ADDING_WATER_TO_MASH_TUN");
         insert(new Action("STOP_ADDING_WATER_TO_MASH_TUN"));
+        actionService.sendMessage("STOP_ADDING_WATER_TO_MASH_TUN");
         delete($a);
 end
 
@@ -67,6 +70,7 @@ rule "Release mixture to pre launter tun"
         delete($a);
         System.out.println("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
         insert(new Action("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN"));
+        actionService.sendMessage("RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
         System.out.println("phase three started!");
 
 end

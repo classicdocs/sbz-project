@@ -2,15 +2,18 @@ package sbz.project
 
 import sbz.project.Application.domain.facts.*;
 import java.util.List;
+global sbz.project.Application.service.action.ActionService actionService;
 
 rule "Stop releasing mixture"
     when
         $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
-        $m: Measurer(name == "MEASURER_MASH_TUN", value == 60);
+        $m: Measurer(name == "MEASURER_MASH_TUN", value == 30);
+        $m2: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value == 60);
     then
         delete($a);
         System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
         insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN"));
+        actionService.sendMessage("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
 end
 
 
@@ -22,6 +25,7 @@ rule "Stop releasing mixture for second time"
         delete($a);
         System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
         insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME"));
+        actionService.sendMessage("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME");
 end
 
 rule "Release mixture to launter tun"
@@ -31,6 +35,7 @@ rule "Release mixture to launter tun"
         delete($a);
         System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TUN");
         insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TUN"));
+        actionService.sendMessage("RELEASE_MIXTURE_TO_LAUNTER_TUN");
         System.out.println("phase four started!");
 end
 
@@ -45,5 +50,6 @@ rule "Release mixture to launter tun for second time"
         delete($a2);
         System.out.println("RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
         insert(new Action("RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME"));
+        actionService.sendMessage("RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
         System.out.println("phase four started!");
 end

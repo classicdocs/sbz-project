@@ -35,6 +35,7 @@ rule "Release beer to filtering medium"
         System.out.println("phase ten started!");
         System.out.println("RELEASE_BEER_TO_FILTERING_MEDIUM");
         insert(new Action("RELEASE_BEER_TO_FILTERING_MEDIUM"));
+        actionService.sendMessage("RELEASE_BEER_TO_FILTERING_MEDIUM");
 end
 
 rule "Stop releasing beer to filtering medium"
@@ -43,5 +44,6 @@ rule "Stop releasing beer to filtering medium"
     then
         System.out.println("STOP_RELEASING_BEER_TO_FILTERING_MEDIUM");
         insert(new Action("STOP_RELEASING_BEER_TO_FILTERING_MEDIUM"));
+        actionService.sendMessage("STOP_RELEASING_BEER_TO_FILTERING_MEDIUM");
         System.out.println("phase ten done!");
 end

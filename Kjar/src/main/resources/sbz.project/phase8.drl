@@ -12,6 +12,7 @@ rule "Add yeast"
         delete($a);
         System.out.println("ADD_YEAST");
         insert(new Action("ADD_YEAST"));
+        actionService.sendMessage("ADD_YEAST");
 end
 
 rule "Stop adding yeast"
@@ -19,8 +20,10 @@ rule "Stop adding yeast"
         $a: Action(type == "ADD_YEAST");
         $m: Measurer(name == "MEASURER_YEAST", value == 20);
     then
+        delete($a);
         System.out.println("STOP_ADDING_YEAST");
         insert(new Action("STOP_ADDING_YEAST"));
+        actionService.sendMessage("STOP_ADDING_YEAST");
 end
 
 rule "Begin fermentation"
@@ -51,6 +54,7 @@ rule "Release beer to conditioning tank"
         System.out.println("phase nine started!");
         System.out.println("RELEASE_BEER_TO_CONDITIONING_TANK");
         insert(new Action("RELEASE_BEER_TO_CONDITIONING_TANK"));
+        actionService.sendMessage("RELEASE_BEER_TO_CONDITIONING_TANK");
 end
 
 
@@ -62,4 +66,5 @@ rule "Stop releasing beer to conditioning tank"
         delete($a);
         System.out.println("STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
         insert(new Action("STOP_RELEASING_BEER_TO_CONDITIONING_TANK"));
+        actionService.sendMessage("STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
 end

@@ -1,0 +1,12 @@
+package sbz.project;
+
+import sbz.project.Application.domain.facts.*;
+
+rule "Init measurers"
+salience 10
+    when
+        $list: List(size == 0) from collect(Measurer())
+    then
+        System.out.println("Init measurers");
+        insert(new Measurer("MEASURER_MASH_TUN_MALT"));
+end
