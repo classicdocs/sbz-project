@@ -41,7 +41,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_ADDING_MALT_TO_MASH_TUN: {
-      stopAddingMaltToMashTun();
+      stopInterval(intervalMashTunMalt);
       break;
     }
     case ActionType.ADD_WATER_TO_MASH_TUN: {
@@ -49,7 +49,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_ADDING_WATER_TO_MASH_TUN: {
-      stopAddingWaterToMashTun();
+      stopInterval(intervalMashTunWater);
       break;
     }
     case ActionType.RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN: {
@@ -57,7 +57,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN: {
-      stopReleasingMixtureToPreLaunterTun();
+      stopInterval(intervalMashTun);
       break;
     }
     case ActionType.RELEASE_MIXTURE_TO_LAUNTER_TUN: {
@@ -65,7 +65,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_MIXTURE_TO_LAUNTER_TUN: {
-      stopReleasingMixtureToLaunterTun();
+      stopInterval(intervalPreLaunterTun)
       break;
     }
     case ActionType.ADD_WATER_TO_LAUNTER_TUN: {
@@ -73,7 +73,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_ADDING_WATER_TO_LAUNTER_TUN: {
-      stopAddingWaterToLaunterTun();
+      stopInterval(intervalLaunterTunWater);
       break;
     }
     case ActionType.RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN: {
@@ -85,14 +85,14 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_BACK_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME: {
-      stopReleasingMixtureToLaunterTunSecondTime();
+      stopInterval(intervalMixtureToLaunterTunSecondTime);
     }
     case ActionType.STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN: {
-      stopReleasingBackMixtureToPreLaunterTun();
+      stopInterval(intervalBackMixtureToPreLaunterTun);
       break;
     }
     case ActionType.STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME: {
-      stopReleasingMixtureToPreLaunterTunSecondTime();
+      stopInterval(intervalMixtureToPreLaunterTunSecondTime);
       break;
     }
     case ActionType.RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME: {
@@ -104,7 +104,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_WORT_TO_BREW_KETTLE: {
-      stopReleasingWortToBrewKettle();
+      stopInterval(intervalRelaseWortToBrewKettle);
       break;
     }
     case ActionType.ADD_HOPS_TO_BREW_KETTLE: {
@@ -112,7 +112,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_ADDING_HOPS_TO_BREW_KETTLE: {
-      stopAddingHopsToBrewKettle();
+      stopInterval(intervalAddHopsToBrewKettle);
       break;
     }
     case ActionType.RELEASE_WORT_TO_WHIRLPOOL: {
@@ -120,7 +120,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_WORT_TO_WHIRLPOOL: {
-      stopReleasingWortToWhirlpool();
+      stopInterval(intervalReleaseWortToWhirlpool);
       break;
     }
     case ActionType.RELEASE_WORT_TO_COOLING_MEDIUM: {
@@ -128,7 +128,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_WORT_TO_COOLING_MEDIUM: {
-      stopReleasingWortToCoolingMedium();
+      stopInterval(intervalReleaseWortToCoolingMedium);
       break;
     }
     case ActionType.ADD_YEAST: {
@@ -136,7 +136,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_ADDING_YEAST: {
-      stopAddingYeast();
+      stopInterval(intervalAddingYeast);
       break;
     }
     case ActionType.RELEASE_BEER_TO_CONDITIONING_TANK: {
@@ -144,7 +144,7 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_BEER_TO_CONDITIONING_TANK: {
-      stopReleasingBeerToConditioningTank();
+      stopInterval(intervalReleaseBeerToConditioningTank);
       break;
     }
     case ActionType.RELEASE_BEER_TO_FILTERING_MEDIUM: {
@@ -152,13 +152,34 @@ function handleMessage(actionType) {
       break;
     }
     case ActionType.STOP_RELEASING_BEER_TO_FILTERING_MEDIUM: {
-      stopReleasingBeerToFilteringMedium();
+      stopInterval(intervalReleaseBeerToFilteringMedium);
       break;
     }
   }
 }
 
 let intervalMashTunMalt = null;
+let intervalMashTunWater = null;
+let intervalMashTun = null;
+let intervalPreLaunterTun = null;
+let intervalLaunterTunWater = null;
+let intervalBackMixtureToPreLaunterTun = null;
+let intervalMixtureToPreLaunterTunSecondTime = null;
+let intervalMixtureToLaunterTunSecondTime = null;
+let intervalRelaseWortToBrewKettle = null;
+let intervalAddHopsToBrewKettle = null;
+let intervalReleaseWortToWhirlpool = null;
+let intervalReleaseWortToCoolingMedium = null;
+let intervalAddingYeast = null;
+let intervalReleaseBeerToConditioningTank = null;
+let intervalReleaseBeerToFilteringMedium = null;
+
+function stopInterval(interval) {
+  if (interval != null) {
+    clearInterval(interval);
+    interval = null;
+  }
+}
 
 function addMaltToMashTun() {
   intervalMashTunMalt = setInterval(() => {
@@ -167,30 +188,12 @@ function addMaltToMashTun() {
   }, INTERVAL)
 }
 
-function stopAddingMaltToMashTun() {
-  if (intervalMashTunMalt != null) {
-    clearInterval(intervalMashTunMalt);
-    intervalMashTunMalt = null;
-  }
-}
-
-let intervalMashTunWater = null;
-
 function addWaterToMashTun() {
   intervalMashTunWater = setInterval(() => {
     measurerMashTunWater.value += VALUE;
     measurerMashTun.value += VALUE;
   }, INTERVAL)
 }
-
-function stopAddingWaterToMashTun() {
-  if (intervalMashTunWater != null) {
-    clearInterval(intervalMashTunWater);
-    intervalMashTunWater = null;
-  }
-}
-
-let intervalMashTun = null;
 
 function releaseMixtureToPreLaunterTun() {
   measurerMashTunMalt.value = 0;
@@ -201,15 +204,6 @@ function releaseMixtureToPreLaunterTun() {
   }, INTERVAL)
 }
 
-function stopReleasingMixtureToPreLaunterTun() {
-  if (intervalMashTun != null) {
-    clearInterval(intervalMashTun);
-    intervalMashTun = null;
-  }
-}
-
-let intervalPreLaunterTun = null;
-
 function releaseMixtureToLaunterTun() {
   intervalPreLaunterTun = setInterval(() => {
     measurerPreLaunterTun.value -= VALUE;
@@ -217,30 +211,12 @@ function releaseMixtureToLaunterTun() {
   }, INTERVAL)
 }
 
-function stopReleasingMixtureToLaunterTun() {
-  if (intervalPreLaunterTun != null) {
-    clearInterval(intervalPreLaunterTun);
-    intervalPreLaunterTun = null;
-  }
-}
-
-let intervalLaunterTunWater = null;
-
 function addWaterToLaunterTun() {
   intervalLaunterTunWater = setInterval(() => {
     measurerLaunterTunWater.value += VALUE;
     measurerLaunterTun.value += VALUE;
   }, INTERVAL)
 }
-
-function stopAddingWaterToLaunterTun() {
-  if (intervalLaunterTunWater != null) {
-    clearInterval(intervalLaunterTunWater);
-    intervalLaunterTunWater = null;
-  }
-}
-
-let intervalBackMixtureToPreLaunterTun = null;
 
 function releaseBackMixtureToPreLaunterTun() {
   measurerLaunterTunWater.value = 0;
@@ -250,30 +226,12 @@ function releaseBackMixtureToPreLaunterTun() {
   }, INTERVAL)
 }
 
-function stopReleasingBackMixtureToPreLaunterTun() {
-  if (intervalBackMixtureToPreLaunterTun != null) {
-    clearInterval(intervalBackMixtureToPreLaunterTun);
-    intervalBackMixtureToPreLaunterTun = null;
-  }
-}
-
-let intervalMixtureToPreLaunterTunSecondTime = null;
-
 function releaseMixtureToPreLaunterTunSecondTime() {
   intervalMixtureToPreLaunterTunSecondTime = setInterval(() => {
     measurerMashTun.value -= VALUE;
     measurerPreLaunterTun.value += VALUE;
   }, INTERVAL)
 }
-
-function stopReleasingMixtureToPreLaunterTunSecondTime() {
-  if (intervalMixtureToPreLaunterTunSecondTime != null) {
-    clearInterval(intervalMixtureToPreLaunterTunSecondTime);
-    intervalMixtureToPreLaunterTunSecondTime = null;
-  }
-}
-
-let intervalMixtureToLaunterTunSecondTime = null;
 
 function releaseMixtureToLaunterTunSecondTime() {
   intervalMixtureToLaunterTunSecondTime = setInterval(() => {
@@ -282,15 +240,6 @@ function releaseMixtureToLaunterTunSecondTime() {
   }, INTERVAL)
 }
 
-function stopReleasingMixtureToLaunterTunSecondTime() {
-  if (intervalMixtureToLaunterTunSecondTime != null) {
-    clearInterval(intervalMixtureToLaunterTunSecondTime);
-    intervalMixtureToLaunterTunSecondTime = null;
-  }
-}
-
-let intervalRelaseWortToBrewKettle = null;
-
 function releaseWortToBrewKettle() {
   intervalRelaseWortToBrewKettle = setInterval(() => {
     measurerLaunterTun.value -= VALUE;
@@ -298,30 +247,12 @@ function releaseWortToBrewKettle() {
   }, INTERVAL)
 }
 
-function stopReleasingWortToBrewKettle() {
-  if (intervalRelaseWortToBrewKettle != null) {
-    clearInterval(intervalRelaseWortToBrewKettle);
-    intervalRelaseWortToBrewKettle = null;
-  }
-}
-
-let intervalAddHopsToBrewKettle = null;
-
 function addHopsToBrewKettle() {
   intervalAddHopsToBrewKettle = setInterval(() => {
     measurerBrewKettleHops.value += VALUE;
     measurerBrewKettle.value += VALUE;
   }, INTERVAL)
 }
-
-function stopAddingHopsToBrewKettle() {
-  if (intervalAddHopsToBrewKettle != null) {
-    clearInterval(intervalAddHopsToBrewKettle);
-    intervalAddHopsToBrewKettle = null;
-  }
-}
-
-let intervalReleaseWortToWhirlpool = null;
 
 function releaseWortToWhirlpool() {
   measurerBrewKettleHops.value = 0;
@@ -331,29 +262,12 @@ function releaseWortToWhirlpool() {
   }, INTERVAL)
 }
 
-function stopReleasingWortToWhirlpool() {
-  if (intervalReleaseWortToWhirlpool != null) {
-    clearInterval(intervalReleaseWortToWhirlpool);
-    intervalReleaseWortToWhirlpool = null;
-  }
-}
-
-let intervalReleaseWortToCoolingMedium = null;
-
 function releaseWortToCoolingMedium() {
   intervalReleaseWortToCoolingMedium = setInterval(() => {
     measurerWhirlpool.value -= VALUE;
+    measurerFermentationTank.value += VALUE;
   }, INTERVAL)
 }
-
-function stopReleasingWortToCoolingMedium() {
-  if (intervalReleaseWortToCoolingMedium != null) {
-    clearInterval(intervalReleaseWortToCoolingMedium);
-    intervalReleaseWortToCoolingMedium = null;
-  }
-}
-
-let intervalAddingYeast = null;
 
 function addYeast() {
   intervalAddingYeast = setInterval(() => {
@@ -361,15 +275,6 @@ function addYeast() {
     measurerFermentationTank.value += VALUE;
   }, INTERVAL)
 }
-
-function stopAddingYeast() {
-  if (intervalAddingYeast != null) {
-    clearInterval(intervalAddingYeast);
-    intervalAddingYeast = null;
-  }
-}
-
-let intervalReleaseBeerToConditioningTank = null;
 
 function releaseBeerToConditioningTank() {
   measurerYeast.value = 0;
@@ -379,26 +284,10 @@ function releaseBeerToConditioningTank() {
   }, INTERVAL)
 }
 
-function stopReleasingBeerToConditioningTank() {
-  if (intervalReleaseBeerToConditioningTank != null) {
-    clearInterval(intervalReleaseBeerToConditioningTank);
-    intervalReleaseBeerToConditioningTank = null;
-  }
-}
-
-let intervalReleaseBeerToFilteringMedium = null;
-
 function releaseBeerToFilteringMedium() {
   intervalReleaseBeerToFilteringMedium = setInterval(() => {
     measurerConditioningTank.value -= VALUE;
   }, INTERVAL)
-}
-
-function stopReleasingBeerToFilteringMedium() {
-  if (intervalReleaseBeerToFilteringMedium != null) {
-    clearInterval(intervalReleaseBeerToFilteringMedium);
-    intervalReleaseBeerToFilteringMedium = null;
-  }
 }
 
 module.exports = {

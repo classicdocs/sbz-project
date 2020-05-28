@@ -74,3 +74,24 @@ global.measurerConditioningTank = {
   value: 0,
   unit: Unit.LITER
 }
+
+function printMeasurers() {
+  console.log("----------------------------------------------------------------------------------");
+  console.log(measurerMashTunMalt);
+  console.log(measurerMashTunWater);
+  console.log(measurerMashTun);
+  console.log(measurerPreLaunterTun);
+  console.log(measurerLaunterTun);
+  console.log(measurerLaunterTunWater);
+  console.log(measurerBrewKettleHops);
+  console.log(measurerBrewKettle);
+  console.log(measurerWhirlpool);
+  console.log(measurerYeast);
+  console.log(measurerFermentationTank);
+  console.log(measurerConditioningTank);
+  console.log("----------------------------------------------------------------------------------");
+}
+
+module.exports = {
+  printMeasurers
+}

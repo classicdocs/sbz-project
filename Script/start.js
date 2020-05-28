@@ -6,6 +6,7 @@ function start() {
   console.log("start");
   requests.post('/action/start').then(() => {
     console.log('finished');
+    sendingData.stop();
   });
 
   setTimeout(() => {
