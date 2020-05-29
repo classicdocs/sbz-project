@@ -36,6 +36,9 @@ public class ActionService {
         }
 
         kieSession = kieContainer.newKieSession("alarmConfigKsessionRealtimeClock");
+        kieSession.getAgenda().getAgendaGroup("initMeasurers").setFocus();
+        kieSession.fireAllRules();
+
         Action startAction = new Action("START_SYSTEM");
         kieSession.setGlobal("actionService", this);
         kieSession.insert(startAction);
@@ -43,7 +46,9 @@ public class ActionService {
         boolean working = true;
         while (working) {
             Thread.sleep(1000);
+            kieSession.getAgenda().getAgendaGroup("stopSystem").setFocus();
             kieSession.fireAllRules();
+
             Collection<Action> actions = (Collection<Action>) kieSession.getObjects( new ClassObjectFilter(Action.class));
 
             for (Action action : actions) {
@@ -56,27 +61,6 @@ public class ActionService {
     }
 
     public void action(MeasurerDTO measurerDTO) {
-//        Collection<Measurer> measurers = (Collection<Measurer>) kieSession.getObjects( new ClassObjectFilter(Measurer.class) );
-
-//        Measurer measurer = null;
-//
-//        for (Measurer m: measurers) {
-//            if (m.getName().equals(measurerDTO.getName())) {
-//                measurer = m;
-//                break;
-//            }
-//        }
-//
-//        if (measurer == null) {
-//            String name = measurerDTO.getName();
-//            Measurer newMeasurer = new Measurer(name, measurerDTO.getValue(), measurerDTO.getUnit());
-//            kieSession.insert(newMeasurer);
-//        } else {
-//            measurer.setValue(measurerDTO.getValue());
-//            FactHandle factHandle = kieSession.getFactHandle(measurer);
-//            kieSession.update(factHandle, measurer);
-//        }
-//
         Measurer newMeasurer = new Measurer(measurerDTO.getName(), measurerDTO.getValue(), measurerDTO.getUnit());
         kieSession.insert(newMeasurer);
         int fired = kieSession.fireAllRules();

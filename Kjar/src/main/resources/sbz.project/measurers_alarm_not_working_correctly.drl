@@ -1,0 +1,216 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+
+rule "MEASURER_MASH_TUN_MALT ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "ADD_MALT_TO_MASH_TUN");
+        $m1: Measurer(name == "MEASURER_MASH_TUN_MALT", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_MASH_TUN_MALT",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN_MALT - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN_MALT", "NOT WORKING CORRECTLY CORRECTLY"));
+end
+
+rule "MEASURER_MASH_TUN_WATER ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "ADD_WATER_TO_MASH_TUN");
+        $m1: Measurer(name == "MEASURER_MASH_TUN_WATER", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_MASH_TUN_WATER",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN_WATER - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN_WATER", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_MASH_TUN ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN"
+         || type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME"
+         || type == "STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN_SECOND_TIME"
+         || type == "STOP_RELEASING_BACK_MIXTURE_TO_PRE_LAUNTER_TUN");
+        $m1: Measurer(name == "MEASURER_MASH_TUN", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_MASH_TUN",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_PRE_LAUNTER_TUN ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN"
+         || type == "RELEASE_MIXTURE_TO_LAUNTER_TUN"
+         || type == "RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN"
+         || type == "RELEASE_MIXTURE_TO_LAUNTER_TUN_SECOND_TIME");
+        $m1: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_PRE_LAUNTER_TUN",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_PRE_LAUNTER_TUN - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_PRE_LAUNTER_TUN", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_LAUNTER_TUN ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_MIXTURE_TO_LAUNTER_TUN"
+         || type == "RELEASE_BACK_MIXTURE_TO_PRE_LAUNTER_TUN"
+         || type == "RELEASE_WORT_TO_BREW_KETTLE");
+        $m1: Measurer(name == "MEASURER_LAUNTER_TUN", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_LAUNTER_TUN",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_LAUNTER_TUN - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_LAUNTER_TUN", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_LAUNTER_TUN_WATER ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "ADD_WATER_TO_LAUNTER_TUN");
+        $m1: Measurer(name == "MEASURER_LAUNTER_TUN_WATER", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_LAUNTER_TUN_WATER",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_LAUNTER_TUN_WATER - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_LAUNTER_TUN_WATER", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_BREW_KETTLE_HOPS ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "ADD_HOPS_TO_BREW_KETTLE");
+        $m1: Measurer(name == "MEASURER_BREW_KETTLE_HOPS", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_BREW_KETTLE_HOPS",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_BREW_KETTLE_HOPS - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_BREW_KETTLE_HOPS", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_BREW_KETTLE ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_WORT_TO_WHIRLPOOL");
+        $m1: Measurer(name == "MEASURER_BREW_KETTLE", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_BREW_KETTLE",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_BREW_KETTLE - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_BREW_KETTLE", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_WHIRLPOOL ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_WORT_TO_COOLING_MEDIUM");
+        $m1: Measurer(name == "MEASURER_WHIRLPOOL", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_WHIRLPOOL",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_WHIRLPOOL - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_WHIRLPOOL", "NOT WORKING CORRECTLY"));
+end
+
+
+rule "MEASURER_YEAST ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "ADD_YEAST");
+        $m1: Measurer(name == "MEASURER_YEAST", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_YEAST",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_YEAST - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_YEAST", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_FERMENTATION_TANK ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "RELEASE_BEER_TO_CONDITIONING_TANK");
+        $m1: Measurer(name == "MEASURER_FERMENTATION_TANK", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_FERMENTATION_TANK",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_FERMENTATION_TANK - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_FERMENTATION_TANK", "NOT WORKING CORRECTLY"));
+end
+
+rule "MEASURER_CONDITIONING_TANK ALARM - NOT_WORKING_CORRECTLY"
+    when
+        $a: Action(type == "START_BOTTLING" || type == "START_FILLING_BARRELS");
+        $m1: Measurer(name == "MEASURER_CONDITIONING_TANK", $m1Value: value);
+        Number(intValue >= 2) from accumulate(
+            $m2: Measurer(name == "MEASURER_CONDITIONING_TANK",
+                 this != $m1,
+                 this meets[3s] $m1,
+                 value == $m1Value
+            ),
+            count($m2)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_CONDITIONING_TANK - NOT WORKING CORRECTLY");
+        insert(new Alarm("[ALARM] MEASURER_CONDITIONING_TANK", "NOT WORKING CORRECTLY"));
+end

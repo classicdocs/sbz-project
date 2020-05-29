@@ -4,9 +4,21 @@ import sbz.project.Application.domain.facts.*;
 
 rule "Init measurers"
 salience 10
+agenda-group "initMeasurers"
     when
         $list: List(size == 0) from collect(Measurer())
     then
         System.out.println("Init measurers");
         insert(new Measurer("MEASURER_MASH_TUN_MALT"));
+        insert(new Measurer("MEASURER_MASH_TUN_WATER"));
+        insert(new Measurer("MEASURER_MASH_TUN"));
+        insert(new Measurer("MEASURER_PRE_LAUNTER_TUN"));
+        insert(new Measurer("MEASURER_LAUNTER_TUN"));
+        insert(new Measurer("MEASURER_LAUNTER_TUN_WATER"));
+        insert(new Measurer("MEASURER_BREW_KETTLE_HOPS"));
+        insert(new Measurer("MEASURER_BREW_KETTLE"));
+        insert(new Measurer("MEASURER_WHIRLPOOL"));
+        insert(new Measurer("MEASURER_YEAST"));
+        insert(new Measurer("MEASURER_FERMENTATION_TANK"));
+        insert(new Measurer("MEASURER_CONDITIONING_TANK"));
 end

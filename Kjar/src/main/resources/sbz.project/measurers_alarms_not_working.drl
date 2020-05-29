@@ -1,0 +1,136 @@
+package sbz.project
+
+import sbz.project.Application.domain.facts.*;
+
+rule "MEASURER_MASH_TUN_MALT ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_MASH_TUN_MALT")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN_MALT - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN_MALT", "NOT WORKING"));
+end
+
+rule "MEASURER_MASH_TUN_WATER ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_MASH_TUN_WATER")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN_WATER - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN_WATER", "NOT WORKING"));
+end
+
+rule "MEASURER_MASH_TUN ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_MASH_TUN")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_MASH_TUN - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_MASH_TUN", "NOT WORKING"));
+end
+
+rule "MEASURER_PRE_LAUNTER_TUN ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_PRE_LAUNTER_TUN")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_PRE_LAUNTER_TUN - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_PRE_LAUNTER_TUN", "NOT WORKING"));
+end
+
+rule "MEASURER_LAUNTER_TUN ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_LAUNTER_TUN")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_LAUNTER_TUN - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_LAUNTER_TUN", "NOT WORKING"));
+end
+
+rule "MEASURER_LAUNTER_TUN_WATER ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_LAUNTER_TUN_WATER")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_LAUNTER_TUN_WATER - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_LAUNTER_TUN_WATER", "NOT WORKING"));
+end
+
+rule "MEASURER_BREW_KETTLE_HOPS ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_BREW_KETTLE_HOPS")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_BREW_KETTLE_HOPS - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_BREW_KETTLE_HOPS", "NOT WORKING"));
+end
+
+rule "MEASURER_BREW_KETTLE ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_BREW_KETTLE")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_BREW_KETTLE - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_BREW_KETTLE", "NOT WORKING"));
+end
+
+rule "MEASURER_WHIRLPOOL ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_WHIRLPOOL")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_WHIRLPOOL - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_WHIRLPOOL", "NOT WORKING"));
+end
+
+
+rule "MEASURER_YEAST ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_YEAST")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_YEAST - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_YEAST", "NOT WORKING"));
+end
+
+rule "MEASURER_FERMENTATION_TANK ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_FERMENTATION_TANK")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_FERMENTATION_TANK - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_FERMENTATION_TANK", "NOT WORKING"));
+end
+
+rule "MEASURER_CONDITIONING_TANK ALARM - NOT_WORKING"
+    when
+        not (
+            Measurer(name == "MEASURER_CONDITIONING_TANK")
+            over window:time(10s)
+        )
+    then
+        System.out.println("[ALARM] MEASURER_CONDITIONING_TANK - NOT WORKING");
+        insert(new Alarm("[ALARM] MEASURER_CONDITIONING_TANK", "NOT WORKING"));
+end

@@ -31,7 +31,7 @@ const ActionType = {
   STOP_RELEASING_BEER_TO_FILTERING_MEDIUM: "STOP_RELEASING_BEER_TO_FILTERING_MEDIUM", // phase 9
 }
 
-const INTERVAL = 600;
+const INTERVAL = 500;
 const VALUE = 5;
 
 function handleMessage(actionType) {

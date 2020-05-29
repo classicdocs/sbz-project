@@ -2,6 +2,7 @@
 var Stomp = require('@stomp/stompjs');
 var SockJS = require('sockjs-client');
 var actions = require('./actions');
+var actionsIncorrectly = require('./actionsIncorrectly');
 var global = require('./global');
 
 var stompClient = null;
@@ -24,7 +25,11 @@ function connect(start) {
 function handleMessage(message) {
   console.log(message);
   global.printMeasurers();
-  actions.handleMessage(message.message);
+  if (mode === 'regular') {
+    actions.handleMessage(message.message);
+  } else {
+    actionsIncorrectly.handleMessage(message.message);
+  }
 }
 
 module.exports = {

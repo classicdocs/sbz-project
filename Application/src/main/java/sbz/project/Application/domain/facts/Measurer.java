@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @Role(Role.Type.EVENT)
-@Expires("1s")
+@Expires("5s")
 public class Measurer implements Serializable {
 
     private static final long serialVersionUID = 1L;

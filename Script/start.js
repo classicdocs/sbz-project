@@ -1,5 +1,6 @@
 var requests = require('./http');
 var sendingData = require('./sendingData');
+var sendingDataIncorrectly = require('./sendingDataIncorrectly');
 
 function start() {
 
@@ -7,10 +8,17 @@ function start() {
   requests.post('/action/start').then(() => {
     console.log('finished');
     sendingData.stop();
+    sendingDataIncorrectly.stop();
   });
 
   setTimeout(() => {
-    sendingData.start();
+    if (mode === 'regular') {
+      sendingDataIncorrectly.stop();
+      sendingData.start();
+    } else if (mode === 'incorrectly') {
+      sendingData.stop();
+      sendingDataIncorrectly.start();
+    }
   }, 1000);
 
 }
