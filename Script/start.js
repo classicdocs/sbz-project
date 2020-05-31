@@ -12,15 +12,12 @@ function start() {
   });
 
   setTimeout(() => {
-    if (mode === 'regular') {
-      sendingDataIncorrectly.stop();
+    if (mode === MODE.REGULAR) {
       sendingData.start();
-    } else if (mode === 'incorrectly') {
-      sendingData.stop();
+    } else if (mode === MODE.INCORRECTLY) {
       sendingDataIncorrectly.start();
     }
   }, 1000);
-
 }
 
 module.exports = {

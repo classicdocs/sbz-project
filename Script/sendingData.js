@@ -1,4 +1,5 @@
 var requests = require('./http');
+var sendingDataIncorrectly = require('./sendingDataIncorrectly');
 
 const INTERVAL = 500;
 let intervals = [];
@@ -29,7 +30,6 @@ function stop() {
 
 function startSendingData(measurer, interval = INTERVAL) {
   let intervalSendingData = setInterval(() => {
-    // console.log(measurer);
     requests.post('/action/measurer', measurer);
   }, interval); 
 

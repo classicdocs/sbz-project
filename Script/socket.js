@@ -25,9 +25,9 @@ function connect(start) {
 function handleMessage(message) {
   console.log(message);
   global.printMeasurers();
-  if (mode === 'regular') {
+  if (mode === MODE.REGULAR) {
     actions.handleMessage(message.message);
-  } else {
+  } else if (mode === MODE.INCORRECTLY) {
     actionsIncorrectly.handleMessage(message.message);
   }
 }

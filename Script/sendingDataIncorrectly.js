@@ -28,11 +28,29 @@ function stop() {
 }
 
 function startSendingData(measurer, interval = INTERVAL) {
-  let intervalSendingData = setInterval(() => {
-    // console.log(measurer);
-    requests.post('/action/measurer', measurer);
-  }, interval); 
 
+  let intervalSendingData = null;
+
+  if (measurer.name === "MEASURER_LAUNTER_TUN") {
+    let fixed = false;
+    setTimeout(() => {
+      fixed = true;
+      console.log("MEASURER_LAUNTER_TUN FIXED");
+    }, 30000)
+
+    intervalSendingData = setInterval(() => {
+      if (fixed) {
+        requests.post('/action/measurer', measurer);
+      }
+    }, interval); 
+
+
+  } else {
+    intervalSendingData = setInterval(() => {
+      requests.post('/action/measurer', measurer);
+    }, interval); 
+  
+  }
   intervals.push(intervalSendingData);
 }
 

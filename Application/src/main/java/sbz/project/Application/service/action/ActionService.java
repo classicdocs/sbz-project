@@ -4,6 +4,7 @@ import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sbz.project.Application.domain.dto.MeasurerDTO;
@@ -13,7 +14,9 @@ import sbz.project.Application.domain.facts.Measurer;
 import sbz.project.Application.socket.Message;
 import sbz.project.Application.socket.MessageProducer;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 @Service
 public class ActionService {
@@ -45,7 +48,7 @@ public class ActionService {
 
         boolean working = true;
         while (working) {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             kieSession.getAgenda().getAgendaGroup("stopSystem").setFocus();
             kieSession.fireAllRules();
 

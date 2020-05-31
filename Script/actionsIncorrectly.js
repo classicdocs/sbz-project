@@ -192,6 +192,7 @@ function addWaterToMashTun() {
   let fixed = false;
   setTimeout(() => {
     fixed = true;
+    console.log("MEASURER_MASH_TUN_WATER FIXED");
   }, 10000);
   intervalMashTunWater = setInterval(() => {
     if (fixed) {
