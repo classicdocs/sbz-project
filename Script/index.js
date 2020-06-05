@@ -12,7 +12,7 @@ global.MODE = {
   INCORRECTLY: "INCORRECTLY",
   REGULAR: "REGULAR"
 }
-global.mode = MODE.INCORRECTLY;
+global.mode = MODE.REGULAR;
 
 // const server = http.createServer((req, res) => {
 //   res.statusCode = 200;

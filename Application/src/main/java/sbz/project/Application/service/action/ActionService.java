@@ -1,58 +1,37 @@
 package sbz.project.Application.service.action;
 
 import org.kie.api.runtime.ClassObjectFilter;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.FactHandle;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sbz.project.Application.domain.dto.MeasurerDTO;
-import sbz.project.Application.domain.enums.Unit;
 import sbz.project.Application.domain.facts.Action;
 import sbz.project.Application.domain.facts.Measurer;
+import sbz.project.Application.service.rule.RuleService;
 import sbz.project.Application.socket.Message;
 import sbz.project.Application.socket.MessageProducer;
 
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.logging.Logger;
 
 @Service
 public class ActionService {
 
-    private final KieContainer kieContainer;
-    private static KieSession kieSession;
-
     @Autowired
     private MessageProducer messageProducer;
 
-    @Autowired
-    public ActionService(KieContainer kieContainer) {
-        this.kieContainer = kieContainer;
-    }
 
     public void startSystem() throws InterruptedException {
-
-        if (kieSession != null) {
-            return;
-        }
-
-        kieSession = kieContainer.newKieSession("alarmConfigKsessionRealtimeClock");
-        kieSession.getAgenda().getAgendaGroup("initMeasurers").setFocus();
-        kieSession.fireAllRules();
+        RuleService.kieSession.getAgenda().getAgendaGroup("initMeasurers").setFocus();
+        RuleService.kieSession.fireAllRules();
 
         Action startAction = new Action("START_SYSTEM");
-        kieSession.setGlobal("actionService", this);
-        kieSession.insert(startAction);
+        RuleService.kieSession.insert(startAction);
 
         boolean working = true;
         while (working) {
             Thread.sleep(500);
-            kieSession.getAgenda().getAgendaGroup("stopSystem").setFocus();
-            kieSession.fireAllRules();
-
-            Collection<Action> actions = (Collection<Action>) kieSession.getObjects( new ClassObjectFilter(Action.class));
+            RuleService.kieSession.getAgenda().getAgendaGroup("stopSystem").setFocus();
+            RuleService.kieSession.fireAllRules();
+            Collection<Action> actions = (Collection<Action>) RuleService.kieSession.getObjects( new ClassObjectFilter(Action.class));
 
             for (Action action : actions) {
                 if (action.getType().equals("STOP_SYSTEM")) {
@@ -65,8 +44,8 @@ public class ActionService {
 
     public void action(MeasurerDTO measurerDTO) {
         Measurer newMeasurer = new Measurer(measurerDTO.getName(), measurerDTO.getValue(), measurerDTO.getUnit());
-        kieSession.insert(newMeasurer);
-        int fired = kieSession.fireAllRules();
+        RuleService.kieSession.insert(newMeasurer);
+        int fired = RuleService.kieSession.fireAllRules();
     }
 
     public static void startAction(long time, String actionType) {
@@ -78,8 +57,8 @@ public class ActionService {
         }
 
         Action action = new Action(actionType);
-        kieSession.insert(action);
-        kieSession.fireAllRules();
+        RuleService.kieSession.insert(action);
+        RuleService.kieSession.fireAllRules();
     }
 
     public void sendMessage(String actionType) {

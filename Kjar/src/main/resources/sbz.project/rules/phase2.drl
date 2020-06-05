@@ -30,16 +30,16 @@ rule "Add water to mash tun"
         delete($a);
 end
 
-rule "Stop adding water to mash tun"
-    when
-        $a: Action(type == "ADD_WATER_TO_MASH_TUN");
-        $m: Measurer(name == "MEASURER_MASH_TUN_WATER", value == 70, unit == Unit.LITER);
-    then
-        System.out.println("STOP_ADDING_WATER_TO_MASH_TUN");
-        insert(new Action("STOP_ADDING_WATER_TO_MASH_TUN"));
-        actionService.sendMessage("STOP_ADDING_WATER_TO_MASH_TUN");
-        delete($a);
-end
+//rule "Stop adding water to mash tun"
+//    when
+//        $a: Action(type == "ADD_WATER_TO_MASH_TUN");
+//        $m: Measurer(name == "MEASURER_MASH_TUN_WATER", value == 70, unit == Unit.LITER);
+//    then
+//        System.out.println("STOP_ADDING_WATER_TO_MASH_TUN");
+//        insert(new Action("STOP_ADDING_WATER_TO_MASH_TUN"));
+//        actionService.sendMessage("STOP_ADDING_WATER_TO_MASH_TUN");
+//        delete($a);
+//end
 
 rule "Start mashing"
     when

@@ -1,0 +1,25 @@
+template header
+water
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "stop-adding-water-to-mash-tun"
+
+rule "Stop adding water to mash tun @{row.rowNumber}"
+no-loop true
+    when
+        $a: Action(type == "ADD_WATER_TO_MASH_TUN");
+        $m: Measurer(name == "MEASURER_MASH_TUN_WATER", value == @{water}, unit == Unit.LITER);
+    then
+        System.out.println("STOP_ADDING_WATER_TO_MASH_TUN");
+        insert(new Action("STOP_ADDING_WATER_TO_MASH_TUN"));
+        actionService.sendMessage("STOP_ADDING_WATER_TO_MASH_TUN");
+        delete($a);
+end
+
+end template
+
