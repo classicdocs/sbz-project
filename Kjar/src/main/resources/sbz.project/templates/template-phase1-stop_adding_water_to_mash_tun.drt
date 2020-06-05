@@ -1,5 +1,6 @@
 template header
 water
+ruleName
 
 package templates;
 
@@ -7,9 +8,9 @@ import sbz.project.Application.domain.enums.Unit;
 import sbz.project.Application.domain.facts.*;
 import sbz.project.Application.service.*;
 
-template "stop-adding-water-to-mash-tun"
+template "phase1-stop_adding_water_to_mash_tun"
 
-rule "Stop adding water to mash tun @{row.rowNumber}"
+rule "@{ruleName}"
 no-loop true
     when
         $a: Action(type == "ADD_WATER_TO_MASH_TUN");

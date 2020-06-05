@@ -2,7 +2,6 @@ package sbz.project.Application.service.rule;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import org.drools.template.ObjectDataCompiler;
 import org.kie.api.KieBaseConfiguration;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.io.ResourceType;
@@ -13,16 +12,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
-import sbz.project.Application.domain.template.Template;
-import sbz.project.Application.domain.template.TemplateStopAddingWaterToMashTun;
 import sbz.project.Application.service.action.ActionService;
 import sbz.project.Application.service.template.TemplateService;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Service

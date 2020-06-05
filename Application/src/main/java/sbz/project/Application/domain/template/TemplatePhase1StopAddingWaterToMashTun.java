@@ -9,12 +9,12 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class  TemplateStopAddingWaterToMashTun extends Template {
+public class TemplatePhase1StopAddingWaterToMashTun extends Template {
 
     private double water;
 
-    public TemplateStopAddingWaterToMashTun(String name, double water) {
-        super(name);
+    public TemplatePhase1StopAddingWaterToMashTun(String templateName, String ruleName, double water) {
+        super(templateName, ruleName);
         this.water = water;
     }
 

@@ -16,14 +16,17 @@ public class Template {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String templateName;
+
+    private String ruleName;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date dateCreated;
 
-    public Template(String name) {
-        this.name = name;
+    public Template(String templateName, String ruleName) {
+        this.templateName = templateName;
+        this.ruleName = ruleName;
     }
 
 }
