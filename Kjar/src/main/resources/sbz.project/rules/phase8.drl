@@ -15,26 +15,26 @@ rule "Add yeast"
         actionService.sendMessage("ADD_YEAST");
 end
 
-rule "Stop adding yeast"
-    when
-        $a: Action(type == "ADD_YEAST");
-        $m: Measurer(name == "MEASURER_YEAST", value == 20);
-    then
-        delete($a);
-        System.out.println("STOP_ADDING_YEAST");
-        insert(new Action("STOP_ADDING_YEAST"));
-        actionService.sendMessage("STOP_ADDING_YEAST");
-end
+//rule "Stop adding yeast"
+//    when
+//        $a: Action(type == "ADD_YEAST");
+//        $m: Measurer(name == "MEASURER_YEAST", value == 20);
+//    then
+//        delete($a);
+//        System.out.println("STOP_ADDING_YEAST");
+//        insert(new Action("STOP_ADDING_YEAST"));
+//        actionService.sendMessage("STOP_ADDING_YEAST");
+//end
 
-rule "Begin fermentation"
-    when
-        $a: Action(type == "STOP_ADDING_YEAST");
-    then
-        delete($a);
-        System.out.println("BEGIN_FERMENTATION");
-        long time = 3000;
-        actionService.startAction(time, "BEGIN_FERMENTATION");
-end
+//rule "Begin fermentation"
+//    when
+//        $a: Action(type == "STOP_ADDING_YEAST");
+//    then
+//        delete($a);
+//        System.out.println("BEGIN_FERMENTATION");
+//        long time = 3000;
+//        actionService.startAction(time, "BEGIN_FERMENTATION");
+//end
 
 rule "Stop fermentation"
     when

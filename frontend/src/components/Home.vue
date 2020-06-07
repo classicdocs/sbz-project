@@ -11,7 +11,7 @@
       </v-col>
     </v-row>
         <v-form v-model="formValid"  onSubmit="return false;">
-           <v-row v-if="selectedTemplate.templateName === templatesConsts.PHASE_1_STOP_ADDING_WATER_TO_MASH_TUN">
+           <v-row>
             <v-col>
               <v-text-field
                 v-for="item in selectedValues" :key="item.name"
@@ -54,7 +54,19 @@ import axios from 'axios'
         formValid: false,
         selectedValues: [],
         templatesConsts: {
-          PHASE_1_STOP_ADDING_WATER_TO_MASH_TUN: "phase1-stop_adding_water_to_mash_tun"
+          PHASE_2_STOP_ADDING_WATER_TO_MASH_TUN: "phase2-stop_adding_water_to_mash_tun",
+          PHASE_2_STOP_ADDING_MALT_TO_MASH_TUN: "phase2-stop_adding_malt_to_mash_tun",
+          PHASE_2_START_MASHING:"phase2-start_mashing",
+          PHASE_3_STOP_RELEASING_MIXTURE: "phase3-stop_releasing_mixture",
+          PHASE_4_STOP_RELEASING_MIXTURE_TO_LAUNTER_TUN: "phase4-stop_releasing_mixture_to_launter_tun",
+          PHASE_4_STOP_ADDING_WATER_TO_LAUNTER_TUN: "phase4-stop_adding_water_to_launter_tun",
+          PHASE_4_STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN: "phase4-stop_releasing_mixture_to_pre_launter_tun",
+          PHASE_5_STOP_RELEASING_HOPS_TO_BREW_KETTLE: "phase5-stop_releasing_hops_to_brew_kettle",
+          PHASE_5_START_BOILING: "phase5-start_boiling",
+          PHASE_6_START_SWIRLING: "phase6-start_swirling",
+          PHASE_8_STOP_ADDING_YEAST: "phase8-stop_adding_yeast",
+          PHASE_8_BEGIN_FERMENTATION: "phase8-begin_fermentation",
+          PHASE_9_BEGIN_BEERS_CONTITIONING: "phase9-begin_beers_conditioning"
         },
         snackbar: {
           model: false,

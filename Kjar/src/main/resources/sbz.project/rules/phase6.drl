@@ -5,16 +5,16 @@ import java.util.List
 
 global sbz.project.Application.service.action.ActionService actionService;
 
-rule "Start swirling"
-    when
-        $a: Action(type == "STOP_RELEASING_WORT_TO_WHIRLPOOL");
-    then
-        delete($a);
-        System.out.println("phase six started!");
-        System.out.println("START_SWIRLING");
-        long time = 3000;
-        actionService.startAction(time, "START_SWIRLING");
-end
+//rule "Start swirling"
+//    when
+//        $a: Action(type == "STOP_RELEASING_WORT_TO_WHIRLPOOL");
+//    then
+//        delete($a);
+//        System.out.println("phase six started!");
+//        System.out.println("START_SWIRLING");
+//        long time = 3000;
+//        actionService.startAction(time, "START_SWIRLING");
+//end
 
 rule "STOP swirling"
     when

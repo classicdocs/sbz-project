@@ -4,17 +4,17 @@ import sbz.project.Application.domain.facts.*;
 import java.util.List;
 global sbz.project.Application.service.action.ActionService actionService;
 
-rule "Stop releasing mixture"
-    when
-        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
-        $m: Measurer(name == "MEASURER_MASH_TUN", value == 30);
-        $m2: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value == 60);
-    then
-        delete($a);
-        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
-        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN"));
-        actionService.sendMessage("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
-end
+//rule "Stop releasing mixture"
+//    when
+//        $a: Action(type == "RELEASE_MIXTURE_TO_PRE_LAUNTER_TUN");
+//        $m: Measurer(name == "MEASURER_MASH_TUN", value == 30);
+//        $m2: Measurer(name == "MEASURER_PRE_LAUNTER_TUN", value == 60);
+//    then
+//        delete($a);
+//        System.out.println("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
+//        insert(new Action("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN"));
+//        actionService.sendMessage("STOP_RELEASING_MIXTURE_TO_PRE_LAUNTER_TUN");
+//end
 
 
 rule "Stop releasing mixture for second time"

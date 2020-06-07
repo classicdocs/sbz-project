@@ -37,9 +37,12 @@ public class Template {
         StringBuilder values = new StringBuilder();
         for(int i = 0; i < tokens.length; i++) {
             values.append(tokens[i].split("=")[1]);
+            values.append(";");
         }
 
-        return ruleName + ";" + values.toString();
+        String result = values.toString();
+        result = result.substring(0, result.length() - 1);
+        return ruleName + ";" +  result;
     }
 
 }

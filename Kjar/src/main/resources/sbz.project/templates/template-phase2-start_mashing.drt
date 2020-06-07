@@ -1,0 +1,25 @@
+template header
+ruleName
+time
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase2-start_mashing"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "STOP_ADDING_WATER_TO_MASH_TUN");
+    then
+        System.out.println("START_MASHING");
+        long time = @{time};
+        delete($a);
+
+        actionService.startAction(time, "START_MASHING");
+end
+
+end template
+

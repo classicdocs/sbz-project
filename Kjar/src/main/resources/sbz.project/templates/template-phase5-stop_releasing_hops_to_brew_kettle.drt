@@ -1,0 +1,25 @@
+template header
+ruleName
+mash_tun
+brew_kettle_hops
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase5-stop_releasing_hops_to_brew_kettle"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "ADD_HOPS_TO_BREW_KETTLE");
+        $m: Measurer(name == "MEASURER_BREW_KETTLE_HOPS", value == @{brew_kettle_hops})
+    then
+        delete($a);
+        System.out.println("STOP_ADDING_HOPS_TO_BREW_KETTLE");
+        insert(new Action("STOP_ADDING_HOPS_TO_BREW_KETTLE"));
+        actionService.sendMessage("STOP_ADDING_HOPS_TO_BREW_KETTLE");
+end
+end template
+

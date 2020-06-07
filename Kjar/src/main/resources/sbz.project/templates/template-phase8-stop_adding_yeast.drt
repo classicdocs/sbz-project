@@ -1,0 +1,24 @@
+template header
+ruleName
+yeast
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase8-stop_adding_yeast"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "ADD_YEAST");
+        $m: Measurer(name == "MEASURER_YEAST", value == @{yeast});
+    then
+        delete($a);
+        System.out.println("STOP_ADDING_YEAST");
+        insert(new Action("STOP_ADDING_YEAST"));
+        actionService.sendMessage("STOP_ADDING_YEAST");
+end
+end template
+

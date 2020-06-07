@@ -5,27 +5,27 @@ import java.util.List
 global sbz.project.Application.service.action.ActionService actionService;
 
 
-rule "Stop releasing hops to brew kettle"
-    when
-        $a: Action(type == "ADD_HOPS_TO_BREW_KETTLE");
-        $m: Measurer(name == "MEASURER_BREW_KETTLE_HOPS", value == 10)
-    then
-        delete($a);
-        System.out.println("STOP_ADDING_HOPS_TO_BREW_KETTLE");
-        insert(new Action("STOP_ADDING_HOPS_TO_BREW_KETTLE"));
-        actionService.sendMessage("STOP_ADDING_HOPS_TO_BREW_KETTLE");
-end
+//rule "Stop releasing hops to brew kettle"
+//    when
+//        $a: Action(type == "ADD_HOPS_TO_BREW_KETTLE");
+//        $m: Measurer(name == "MEASURER_BREW_KETTLE_HOPS", value == 10)
+//    then
+//        delete($a);
+//        System.out.println("STOP_ADDING_HOPS_TO_BREW_KETTLE");
+//        insert(new Action("STOP_ADDING_HOPS_TO_BREW_KETTLE"));
+//        actionService.sendMessage("STOP_ADDING_HOPS_TO_BREW_KETTLE");
+//end
 
-rule "Start boiling"
-    when
-        $a: Action(type == "STOP_ADDING_HOPS_TO_BREW_KETTLE");
-        $a2: Action(type == "STOP_RELEASING_WORT_TO_BREW_KETTLE");
-    then
-        delete($a);
-        System.out.println("START_BOILING");
-        long time = 3000;
-        actionService.startAction(time, "START_BOILING");
-end
+//rule "Start boiling"
+//    when
+//        $a: Action(type == "STOP_ADDING_HOPS_TO_BREW_KETTLE");
+//        $a2: Action(type == "STOP_RELEASING_WORT_TO_BREW_KETTLE");
+//    then
+//        delete($a);
+//        System.out.println("START_BOILING");
+//        long time = 3000;
+//        actionService.startAction(time, "START_BOILING");
+//end
 
 rule "Stop boiling"
     when

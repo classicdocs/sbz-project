@@ -9,16 +9,16 @@ import sbz.project.Application.service.*;
 
 global sbz.project.Application.service.action.ActionService actionService;
 
-rule "Stop adding malt to mash tun"
-    when
-        $a: Action(type == "ADD_MALT_TO_MASH_TUN");
-        $m: Measurer(name == "MEASURER_MASH_TUN_MALT", value == 20, unit == Unit.KILOGRAM);
-    then
-        System.out.println("STOP_ADDING_MALT_TO_MASH_TUN");
-        insert(new Action("STOP_ADDING_MALT_TO_MASH_TUN"));
-        actionService.sendMessage("STOP_ADDING_MALT_TO_MASH_TUN");
-        delete($a);
-end
+//rule "Stop adding malt to mash tun"
+//    when
+//        $a: Action(type == "ADD_MALT_TO_MASH_TUN");
+//        $m: Measurer(name == "MEASURER_MASH_TUN_MALT", value == 20, unit == Unit.KILOGRAM);
+//    then
+//        System.out.println("STOP_ADDING_MALT_TO_MASH_TUN");
+//        insert(new Action("STOP_ADDING_MALT_TO_MASH_TUN"));
+//        actionService.sendMessage("STOP_ADDING_MALT_TO_MASH_TUN");
+//        delete($a);
+//end
 
 rule "Add water to mash tun"
     when
@@ -41,17 +41,17 @@ end
 //        delete($a);
 //end
 
-rule "Start mashing"
-    when
-        $a: Action(type == "STOP_ADDING_WATER_TO_MASH_TUN");
-    then
-        System.out.println("START_MASHING");
-//        long time = 1000 * 60 * 60; // 1h
-        long time = 5000;
-        delete($a);
-
-        actionService.startAction(time, "START_MASHING");
-end
+//rule "Start mashing"
+//    when
+//        $a: Action(type == "STOP_ADDING_WATER_TO_MASH_TUN");
+//    then
+//        System.out.println("START_MASHING");
+////        long time = 1000 * 60 * 60; // 1h
+//        long time = 5000;
+//        delete($a);
+//
+//        actionService.startAction(time, "START_MASHING");
+//end
 
 rule "Stop mashing"
     when

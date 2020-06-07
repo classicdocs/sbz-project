@@ -8,7 +8,7 @@ import sbz.project.Application.domain.enums.Unit;
 import sbz.project.Application.domain.facts.*;
 import sbz.project.Application.service.*;
 
-template "phase1-stop_adding_water_to_mash_tun"
+template "phase2-stop_adding_water_to_mash_tun"
 
 rule "@{ruleName}"
 no-loop true

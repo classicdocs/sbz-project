@@ -1,0 +1,24 @@
+template header
+ruleName
+time
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase6-start_swirling"
+
+rule "@{ruleName}"
+  when
+      $a: Action(type == "STOP_RELEASING_WORT_TO_WHIRLPOOL");
+  then
+      delete($a);
+      System.out.println("phase six started!");
+      System.out.println("START_SWIRLING");
+      long time = @{time};
+      actionService.startAction(time, "START_SWIRLING");
+end
+end template
+

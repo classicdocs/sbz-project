@@ -1,0 +1,23 @@
+template header
+ruleName
+time
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase9-begin_beers_conditioning"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
+    then
+        delete($a);
+        System.out.println("BEGIN_BEER_CONDITIONING");
+        long time = @{time};
+        actionService.startAction(time, "BEGIN_BEER_CONDITIONING");
+end
+end template
+

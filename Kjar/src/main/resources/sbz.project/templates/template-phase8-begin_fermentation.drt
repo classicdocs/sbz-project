@@ -1,0 +1,23 @@
+template header
+ruleName
+time
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase6-start_swirling"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "STOP_ADDING_YEAST");
+    then
+        delete($a);
+        System.out.println("BEGIN_FERMENTATION");
+        long time = @{time};
+        actionService.startAction(time, "BEGIN_FERMENTATION");
+end
+end template
+

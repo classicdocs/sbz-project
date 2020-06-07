@@ -1,0 +1,25 @@
+template header
+ruleName
+launter_tun_water
+
+package templates;
+
+import sbz.project.Application.domain.enums.Unit;
+import sbz.project.Application.domain.facts.*;
+import sbz.project.Application.service.*;
+
+template "phase4-stop_adding_water_to_launter_tun"
+
+rule "@{ruleName}"
+    when
+        $a: Action(type == "ADD_WATER_TO_LAUNTER_TUN");
+        $m: Measurer(name == "MEASURER_LAUNTER_TUN_WATER", value == @{launter_tun_water})
+    then
+        delete($a);
+        System.out.println("STOP_ADDING_WATER_TO_LAUNTER_TUN");
+        insert(new Action("STOP_ADDING_WATER_TO_LAUNTER_TUN"));
+        actionService.sendMessage("STOP_ADDING_WATER_TO_LAUNTER_TUN");
+end
+
+end template
+

@@ -6,15 +6,15 @@ import java.util.List
 global sbz.project.Application.service.action.ActionService actionService;
 
 
-rule "Begin beer's conditioning"
-    when
-        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
-    then
-        delete($a);
-        System.out.println("BEGIN_BEER_CONDITIONING");
-        long time = 3000;
-        actionService.startAction(time, "BEGIN_BEER_CONDITIONING");
-end
+//rule "Begin beer's conditioning"
+//    when
+//        $a: Action(type == "STOP_RELEASING_BEER_TO_CONDITIONING_TANK");
+//    then
+//        delete($a);
+//        System.out.println("BEGIN_BEER_CONDITIONING");
+//        long time = 3000;
+//        actionService.startAction(time, "BEGIN_BEER_CONDITIONING");
+//end
 
 rule "Stop beer's conditioning"
     when
