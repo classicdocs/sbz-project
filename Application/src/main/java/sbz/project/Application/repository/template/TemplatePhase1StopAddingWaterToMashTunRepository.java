@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import sbz.project.Application.domain.template.TemplatePhase1StopAddingWaterToMashTun;
 
 @Repository
-public interface TemplateStopAddingWaterToMashTunRepository  extends JpaRepository<TemplatePhase1StopAddingWaterToMashTun, Long> {
+public interface TemplatePhase1StopAddingWaterToMashTunRepository extends JpaRepository<TemplatePhase1StopAddingWaterToMashTun, Long> {
 
 }

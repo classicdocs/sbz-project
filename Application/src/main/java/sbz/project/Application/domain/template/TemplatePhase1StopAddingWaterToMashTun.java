@@ -18,4 +18,8 @@ public class TemplatePhase1StopAddingWaterToMashTun extends Template {
         this.water = water;
     }
 
+    public TemplatePhase1StopAddingWaterToMashTun(TemplatePhase1StopAddingWaterToMashTun template) {
+        super(template.getTemplateName(), template.getRuleName());
+        this.water = template.getWater();
+    }
 }
