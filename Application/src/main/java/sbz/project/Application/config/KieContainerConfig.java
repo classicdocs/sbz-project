@@ -1,7 +1,5 @@
 package sbz.project.Application.config;
 
-import org.drools.template.DataProviderCompiler;
-import org.drools.template.ObjectDataCompiler;
 import org.kie.api.KieBaseConfiguration;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
@@ -21,7 +19,7 @@ public class KieContainerConfig {
         KieContainer kContainer = ks
                 .newKieContainer(ks.newReleaseId("sbz.project", "Kjar", "0.0.1-SNAPSHOT"));
         KieScanner kScanner = ks.newKieScanner(kContainer);
-        kScanner.start(5_000);
+        kScanner.start(5000);
         return kContainer;
     }
 
@@ -42,11 +40,5 @@ public class KieContainerConfig {
     public KieSession kieSession() {
         return kieContainer().newKieSession("alarmConfigKsessionRealtimeClock");
     }
-
-//    @Bean
-//    public ObjectDataCompiler objectDataCompiler() {
-//        return new ObjectDataCompiler();
-//    }
-
 
 }

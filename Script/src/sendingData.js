@@ -1,5 +1,4 @@
 var requests = require('./http');
-var sendingDataIncorrectly = require('./sendingDataIncorrectly');
 
 const INTERVAL = 500;
 let intervals = [];
