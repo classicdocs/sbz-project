@@ -2,9 +2,12 @@ package sbz.project.Application.service.rule;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import org.drools.template.model.Rule;
 import org.kie.api.KieBaseConfiguration;
+import org.kie.api.KieServices;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
+import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
@@ -14,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
+import sbz.project.Application.domain.template.Template;
 import sbz.project.Application.exceptions.DrlException;
 import sbz.project.Application.service.action.ActionService;
 import sbz.project.Application.service.template.TemplateService;
@@ -26,25 +30,45 @@ import java.util.List;
 public class RuleService {
 
     public static KieSession kieSession;
-    private final KieHelper kieHelper;
+    private KieHelper kieHelper;
     private final ActionService actionService;
-    private final KieBaseConfiguration kieBaseConfiguration;
+    private KieBaseConfiguration kieBaseConfiguration;
     private final ResourcePatternResolver resolver;
-    private final TemplateService templateService;
+    private TemplateService templateService;
 
     @Autowired
     public RuleService(KieHelper kieHelper, ActionService actionService,
-                       KieBaseConfiguration kieBaseConfiguration,
-                       ResourcePatternResolver resolver, TemplateService templateService) throws IOException {
+                       KieBaseConfiguration kieBaseConfiguration, TemplateService templateService) throws IOException {
         this.kieHelper = kieHelper;
         this.actionService = actionService;
         this.kieBaseConfiguration = kieBaseConfiguration;
         this.resolver = new PathMatchingResourcePatternResolver(RuleService.class.getClassLoader());
         this.templateService = templateService;
 
-        this.loadStaticRules();
-        this.loadDynamicRules();
-        this.updateSession();
+        this.load();
+    }
+
+    public void load() throws IOException {
+        kieHelper = new KieHelper();
+        loadStaticRules();
+        loadDynamicRules();
+        updateSession();
+    }
+
+    private void loadDynamicRules() throws IOException {
+
+        List<String> drls = templateService.getDrls();
+
+        for (String drl : drls) {
+            this.kieHelper.addContent(drl, ResourceType.DRL);
+        }
+
+        try {
+            this.verifyRules();
+        } catch (DrlException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void loadStaticRules() throws IOException {
@@ -66,29 +90,7 @@ public class RuleService {
         return this.resolver.getResource(path);
     }
 
-    private void loadDynamicRules() throws IOException {
-
-        List<String> drls = templateService.getDrls();
-
-        for (String drl : drls) {
-            this.kieHelper.addContent(drl, ResourceType.DRL);
-        }
-
-        try {
-            this.verifyRules();
-        } catch (DrlException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void addRule(String drl) throws DrlException {
-        this.kieHelper.addContent(drl, ResourceType.DRL);
-        this.verifyRules();
-
-    }
-
-    public void removeRule(String ruleName) {
+    private void removeRule(String ruleName) {
         kieSession.getKieBase().removeRule("templates", ruleName);
     }
 

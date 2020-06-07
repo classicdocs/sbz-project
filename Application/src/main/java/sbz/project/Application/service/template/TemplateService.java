@@ -1,14 +1,14 @@
 package sbz.project.Application.service.template;
 
-import org.drools.template.ObjectDataCompiler;
+import org.drools.template.DataProvider;
+import org.drools.template.DataProviderCompiler;
+import org.drools.template.objects.ArrayDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import sbz.project.Application.domain.template.Template;
-import sbz.project.Application.domain.template.TemplatePhase1StopAddingWaterToMashTun;
-import sbz.project.Application.exceptions.DrlException;
-import sbz.project.Application.repository.template.TemplatePhase1StopAddingWaterToMashTunRepository;
+import sbz.project.Application.repository.template.TemplateRepository;
 import sbz.project.Application.service.rule.RuleService;
 
 import java.io.IOException;
@@ -16,20 +16,18 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static sbz.project.Application.contants.TemplateNames.PHASE_1_STOP_ADDING_WATER_TO_MASH_TUN;
-
 @Service
 public class TemplateService {
 
-    private final TemplatePhase1StopAddingWaterToMashTunRepository templatePhase1StopAddingWaterToMashTunRepository;
-    private final ResourcePatternResolver resolver;
+    private final TemplateRepository templateRepository;
     private RuleService ruleService;
 
     @Autowired
-    public TemplateService(TemplatePhase1StopAddingWaterToMashTunRepository templatePhase1StopAddingWaterToMashTunRepository) {
-        this.templatePhase1StopAddingWaterToMashTunRepository = templatePhase1StopAddingWaterToMashTunRepository;
-        resolver = new PathMatchingResourcePatternResolver(TemplateService.class.getClassLoader());
+    public TemplateService(TemplateRepository templateRepository) {
+        this.templateRepository = templateRepository;
     }
+
+    @Autowired
     public void setRuleService(RuleService ruleService) {
         this.ruleService = ruleService;
     }
@@ -37,37 +35,33 @@ public class TemplateService {
     public List<String> getDrls() throws IOException {
 
         List<String> drls = new ArrayList<>();
-        String stopAddingWaterToMashTun = getDrlFromPhase1StopAddingWaterToMashTun();
-        if (stopAddingWaterToMashTun != "") {
-            drls.add(stopAddingWaterToMashTun);
+
+        List<Template> templates = templateRepository.findAll();
+
+        for(Template template : templates) {
+            String drl = createDrlFromTemplate(template);
+            drls.add(drl);
         }
 
         return drls;
+
     }
 
-    public String getDrlFromPhase1StopAddingWaterToMashTun() throws IOException {
-        List<TemplatePhase1StopAddingWaterToMashTun> templatePhase1StopAddingWaterToMashTunList = templatePhase1StopAddingWaterToMashTunRepository.findAll();
-
-        if (templatePhase1StopAddingWaterToMashTunList.isEmpty()) {
-            return "";
-        }
-
-        TemplatePhase1StopAddingWaterToMashTun templatePhase1StopAddingWaterToMashTun = templatePhase1StopAddingWaterToMashTunList.get(templatePhase1StopAddingWaterToMashTunList.size() - 1);
-
-        String templateName = templatePhase1StopAddingWaterToMashTun.getTemplateName();
+    private String createDrlFromTemplate(Template template) throws IOException {
+        String templateName = template.getTemplateName();
         String path = "/sbz.project/templates/template-" + templateName + ".drt";
 
-        InputStream template = TemplateService.class.getResourceAsStream(path);
-
         ResourcePatternResolver resolver =  new PathMatchingResourcePatternResolver(RuleService.class.getClassLoader());
-        InputStream template2 = resolver.getResource(path).getInputStream();
+        InputStream inputStream = resolver.getResource(path).getInputStream();
 
-        List<TemplatePhase1StopAddingWaterToMashTun> data = new ArrayList<>();
-        data.add(new TemplatePhase1StopAddingWaterToMashTun(templateName, templatePhase1StopAddingWaterToMashTun.getRuleName(),
-                templatePhase1StopAddingWaterToMashTun.getWater()));
+        String[] values = template.getNameAndValues().split(";");
 
-        ObjectDataCompiler converter = new ObjectDataCompiler();
-        String drl = converter.compile(data, template2);
+        DataProvider dataProvider = new ArrayDataProvider(new String[][]{
+                values
+        });
+
+        DataProviderCompiler converter = new DataProviderCompiler();
+        String drl = converter.compile(dataProvider, inputStream);
 
         System.out.println(drl);
 
@@ -77,24 +71,13 @@ public class TemplateService {
     public List<Template> getTemplates() {
 
         List<Template> templates = new ArrayList<>();
-        templates.addAll(templatePhase1StopAddingWaterToMashTunRepository.findAll());
+        templates.addAll(templateRepository.findAll());
 
         return templates;
     }
 
-    public void update(Template template) throws IOException, DrlException {
-
-        String drl = "";
-        switch (template.getTemplateName()) {
-            case PHASE_1_STOP_ADDING_WATER_TO_MASH_TUN: {
-
-                TemplatePhase1StopAddingWaterToMashTun t = new TemplatePhase1StopAddingWaterToMashTun((TemplatePhase1StopAddingWaterToMashTun) template);
-                templatePhase1StopAddingWaterToMashTunRepository.save(t);
-                drl = this.getDrlFromPhase1StopAddingWaterToMashTun();
-            }
-        }
-
-        ruleService.removeRule(template.getRuleName());
-        ruleService.addRule(drl);
+    public void update(Template template) throws IOException {
+        templateRepository.save(template);
+        ruleService.load();
     }
 }

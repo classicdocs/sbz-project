@@ -1,2 +1,2 @@
-insert into template_phase1stop_adding_water_to_mash_tun (id, date_created, rule_name, template_name, water) values
-('1', '2020-01-01 00:00:00', 'Stop adding water to mash tun', 'phase1-stop_adding_water_to_mash_tun', '70');
+insert into template (id, date_created, rule_name, template_name, rule_values ) values
+('1', '2020-01-01 00:00:00', 'Stop adding water to mash tun', 'phase1-stop_adding_water_to_mash_tun', 'water=70');

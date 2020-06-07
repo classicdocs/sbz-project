@@ -8,19 +8,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sbz.project.Application.domain.template.Template;
-import sbz.project.Application.domain.template.TemplatePhase1StopAddingWaterToMashTun;
-import sbz.project.Application.exceptions.DrlException;
 import sbz.project.Application.service.template.TemplateService;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/api/template")
 public class TemplateController {
 
-    private final TemplateService templateService;
+    private TemplateService templateService;
 
     public TemplateController(TemplateService templateService) {
         this.templateService = templateService;
@@ -34,7 +30,7 @@ public class TemplateController {
     }
 
     @PutMapping
-    public ResponseEntity updatePhase1StopAddingWaterToMashTun(@RequestBody TemplatePhase1StopAddingWaterToMashTun template) {
+    public ResponseEntity update(@RequestBody Template template) {
 
         try {
             templateService.update(template);
